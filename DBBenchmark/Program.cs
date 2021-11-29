@@ -29,7 +29,7 @@ Integrated Security=true;";
                 i = Int32.Parse(Console.ReadLine());
                 if (i == 1)
                 {
-                    //TODO: Implement SqlAction and SqlBenchmark
+                    benchmark = new SqlBenchmark(connectionString);
                 }
                 else if (i == 2)
                 {

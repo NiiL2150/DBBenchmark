@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace DBBenchmark.DbBenchmark
 {
-    internal class DapperBenchmark : ADbBenchmark
+    internal class SqlBenchmark : ADbBenchmark
     {
-        public DapperBenchmark(SqlConnection connection)
+        public SqlBenchmark(string connection)
         {
             this.ConnectionObject = connection;
-            DbAction = new DapperAction();
+            DbAction = new SqlAction();
         }
-        public DapperBenchmark(string connection) : this(new SqlConnection(connection)) { }
     }
 }

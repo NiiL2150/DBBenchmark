@@ -15,7 +15,7 @@ namespace DBBenchmark.DbAction
         public async Task AddRandomValueAsync(object conn)
         {
             Random random = new Random();
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"INSERT INTO RandomValues 
 (FirstValue, SecondValue, ThirdValue, FourthValue)
 VALUES(@IntV, @StringV, @DateTimeV, @DoubleV)";
@@ -34,7 +34,7 @@ VALUES(@IntV, @StringV, @DateTimeV, @DoubleV)";
         public async Task AddRandomValuesAsync(object conn)
         {
             Random random = new Random();
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"INSERT INTO RandomValues 
 (FirstValue, SecondValue, ThirdValue, FourthValue)
 VALUES(@IntV, @StringV, @DateTimeV, @DoubleV)";
@@ -55,7 +55,7 @@ VALUES(@IntV, @StringV, @DateTimeV, @DoubleV)";
 
         public async Task DeleteRandomValueAsync(object conn, int id)
         {
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"DELETE FROM RandomValues WHERE Id = @IdV";
 
             await sqlConnection.ExecuteAsync(query, new { IdV = id }).ConfigureAwait(false);
@@ -63,7 +63,7 @@ VALUES(@IntV, @StringV, @DateTimeV, @DoubleV)";
 
         public async Task DeleteAllRandomValuesAsync(object conn)
         {
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"DELETE FROM RandomValues";
 
             await sqlConnection.ExecuteAsync(query).ConfigureAwait(false);
@@ -72,7 +72,7 @@ VALUES(@IntV, @StringV, @DateTimeV, @DoubleV)";
 
         public async Task UpdateRandomValueAsync(object conn, int id, int newFirst)
         {
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"UPDATE RandomValues
 SET FirstValue = @NewFirst
 WHERE Id = @IdV";
@@ -82,7 +82,7 @@ WHERE Id = @IdV";
 
         public async Task UpdateAllRandomValuesAsync(object conn, int newFirst)
         {
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"UPDATE RandomValues
 SET FirstValue = @NewFirst";
 
@@ -91,7 +91,7 @@ SET FirstValue = @NewFirst";
 
         public async Task<object?> GetRandomValueAsync(object conn, int id)
         {
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"SELECT * FROM RandomValues WHERE Id = @IdV";
 
             var item = await sqlConnection.QueryFirstOrDefaultAsync(query, new { IdV = id });
@@ -100,7 +100,7 @@ SET FirstValue = @NewFirst";
 
         public async Task<object?> GetRandomValuesAsync(object conn)
         {
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"SELECT * FROM RandomValues";
 
             var item = await sqlConnection.QueryAsync(query);
@@ -109,7 +109,7 @@ SET FirstValue = @NewFirst";
 
         public async Task<object?> SearchByStringAsync(object conn, string searchString)
         {
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"SELECT * FROM RandomValues WHERE SecondValue = @str";
 
             var item = await sqlConnection.QueryFirstOrDefaultAsync(query, new { str = searchString });
@@ -118,7 +118,7 @@ SET FirstValue = @NewFirst";
 
         public async Task<object?> SearchMultByStringAsync(object conn, string searchString)
         {
-            SqlConnection sqlConnection = new SqlConnection(conn as string);
+            SqlConnection sqlConnection = conn as SqlConnection;
             string query = @"SELECT * FROM RandomValues WHERE SecondValue = @str";
 
             var item = await sqlConnection.QueryAsync(query, new { str = searchString });

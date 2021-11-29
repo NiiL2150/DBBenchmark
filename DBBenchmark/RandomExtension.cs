@@ -21,7 +21,7 @@ namespace DBBenchmark
             DateTime today = DateTime.Now;
             int randomYear = random.Next(1980, today.Year);
             int randomMonth = random.Next(1, 12);
-            int randomDay = random.Next(1, 31);
+            int randomDay = random.Next(1, 28);
             return new DateTime(randomYear, randomMonth, randomDay);
         }
     }
