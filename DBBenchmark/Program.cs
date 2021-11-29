@@ -37,7 +37,7 @@ Integrated Security=true;";
                 }
                 else if (i == 3)
                 {
-                    benchmark = new EFBenchmark();
+                    benchmark = new EFBenchmark(context);
                 }
                 await ChooseTask(benchmark, i - 1);
             } while (i != 0);
@@ -68,7 +68,15 @@ Integrated Security=true;";
                 }
                 else if (i == 2)
                 {
-                    //TODO: Implement IDbBenchmark.AddMany
+                    TimeSpan time = await benchmark.AddManyAsync();
+                    DBTest test = new DBTest()
+                    {
+                        Resolver = (Resolver)DbInt,
+                        Start = DateTime.Now - time,
+                        TestType = (TestType)1,
+                        Timing = time
+                    };
+                    context.DBTests.Add(test);
                 }
                 if (i == 3)
                 {
@@ -86,7 +94,15 @@ Integrated Security=true;";
                 }
                 else if (i == 4)
                 {
-                    //TODO: Implement IDbBenchmark.GetMany
+                    TimeSpan time = await benchmark.GetManyAsync();
+                    DBTest test = new DBTest()
+                    {
+                        Resolver = (Resolver)DbInt,
+                        Start = DateTime.Now - time,
+                        TestType = (TestType)3,
+                        Timing = time
+                    };
+                    context.DBTests.Add(test);
                 }
                 if (i == 5)
                 {
@@ -104,7 +120,17 @@ Integrated Security=true;";
                 }
                 else if (i == 6)
                 {
-                    //TODO: Implement IDbBenchmark.GetAllString
+                    Console.WriteLine("Enter string");
+                    string str = Console.ReadLine();
+                    TimeSpan time = await benchmark.GetAllStringAsync(str);
+                    DBTest test = new DBTest()
+                    {
+                        Resolver = (Resolver)DbInt,
+                        Start = DateTime.Now - time,
+                        TestType = (TestType)5,
+                        Timing = time
+                    };
+                    context.DBTests.Add(test);
                 }
                 if (i == 7)
                 {
@@ -124,7 +150,17 @@ Integrated Security=true;";
                 }
                 else if (i == 8)
                 {
-                    //TODO: Implement IDbBenchmark.UpdateAll
+                    Console.WriteLine("Enter new value");
+                    int newFirst = Int32.Parse(Console.ReadLine());
+                    TimeSpan time = await benchmark.UpdateAllAsync(newFirst);
+                    DBTest test = new DBTest()
+                    {
+                        Resolver = (Resolver)DbInt,
+                        Start = DateTime.Now - time,
+                        TestType = (TestType)7,
+                        Timing = time
+                    };
+                    context.DBTests.Add(test);
                 }
                 if (i == 9)
                 {
@@ -142,7 +178,15 @@ Integrated Security=true;";
                 }
                 else if (i == 10)
                 {
-                    //TODO: Implement IDbBenchmark.DeleteAll
+                    TimeSpan time = await benchmark.DeleteAllAsync();
+                    DBTest test = new DBTest()
+                    {
+                        Resolver = (Resolver)DbInt,
+                        Start = DateTime.Now - time,
+                        TestType = (TestType)9,
+                        Timing = time
+                    };
+                    context.DBTests.Add(test);
                 }
                 await context.SaveChangesAsync();
             } while (i != 0);
