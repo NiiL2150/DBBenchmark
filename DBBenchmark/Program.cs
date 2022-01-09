@@ -54,9 +54,10 @@ Integrated Security=true;";
 3 - GetOneId, 4 - GetMany, 5 - GetFirstString, 6 - GetAllString, 
 7 - UpdateOne, 8 - UpdateAll, 9 - DeleteOne, 10 - DeleteAll 0 - Quit");
                 i = Int32.Parse(Console.ReadLine());
+                TimeSpan time = new TimeSpan(0);
                 if (i == 1)
                 {
-                    TimeSpan time = await benchmark.AddOneAsync();
+                    time = await benchmark.AddOneAsync();
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -68,7 +69,7 @@ Integrated Security=true;";
                 }
                 else if (i == 2)
                 {
-                    TimeSpan time = await benchmark.AddManyAsync();
+                    time = await benchmark.AddManyAsync();
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -82,7 +83,7 @@ Integrated Security=true;";
                 {
                     Console.WriteLine("Enter id");
                     int id = Int32.Parse(Console.ReadLine());
-                    TimeSpan time = await benchmark.GetFirstIdAsync(id);
+                    time = await benchmark.GetFirstIdAsync(id);
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -94,7 +95,7 @@ Integrated Security=true;";
                 }
                 else if (i == 4)
                 {
-                    TimeSpan time = await benchmark.GetManyAsync();
+                    time = await benchmark.GetManyAsync();
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -108,7 +109,7 @@ Integrated Security=true;";
                 {
                     Console.WriteLine("Enter string");
                     string str = Console.ReadLine();
-                    TimeSpan time = await benchmark.GetFirstStringAsync(str);
+                    time = await benchmark.GetFirstStringAsync(str);
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -122,7 +123,7 @@ Integrated Security=true;";
                 {
                     Console.WriteLine("Enter string");
                     string str = Console.ReadLine();
-                    TimeSpan time = await benchmark.GetAllStringAsync(str);
+                    time = await benchmark.GetAllStringAsync(str);
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -138,7 +139,7 @@ Integrated Security=true;";
                     int id = Int32.Parse(Console.ReadLine());
                     Console.WriteLine("Enter new value");
                     int newFirst = Int32.Parse(Console.ReadLine());
-                    TimeSpan time = await benchmark.UpdateOneAsync(id, newFirst);
+                    time = await benchmark.UpdateOneAsync(id, newFirst);
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -152,7 +153,7 @@ Integrated Security=true;";
                 {
                     Console.WriteLine("Enter new value");
                     int newFirst = Int32.Parse(Console.ReadLine());
-                    TimeSpan time = await benchmark.UpdateAllAsync(newFirst);
+                    time = await benchmark.UpdateAllAsync(newFirst);
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -166,7 +167,7 @@ Integrated Security=true;";
                 {
                     Console.WriteLine("Enter id");
                     int id = Int32.Parse(Console.ReadLine());
-                    TimeSpan time = await benchmark.DeleteOneAsync(id);
+                    time = await benchmark.DeleteOneAsync(id);
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -178,7 +179,7 @@ Integrated Security=true;";
                 }
                 else if (i == 10)
                 {
-                    TimeSpan time = await benchmark.DeleteAllAsync();
+                    time = await benchmark.DeleteAllAsync();
                     DBTest test = new DBTest()
                     {
                         Resolver = (Resolver)DbInt,
@@ -189,6 +190,8 @@ Integrated Security=true;";
                     context.DBTests.Add(test);
                 }
                 await context.SaveChangesAsync();
+                Console.WriteLine(time.TotalMilliseconds == 0 ? "" : $"Timing - {time}");
+                Console.ReadKey();
             } while (i != 0);
         }
     }
